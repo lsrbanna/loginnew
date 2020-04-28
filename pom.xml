@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.javainterviewpoint</groupId>
+  <artifactId>my_helloworld</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>my_helloworld</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <skipTests>true</skipTests>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
+  
+<parent>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-parent</artifactId>
+   <version>1.5.1.RELEASE</version>
+
+</parent>
+ 
+<dependencies>
+<dependency> 
+      <groupId>junit</groupId> 
+      <artifactId>junit</artifactId> 
+      <scope>test</scope> 
+    </dependency> 
+   <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-web</artifactId>
+   </dependency>
+   <dependency>
+		<groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-test</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+    </dependency>
+ </dependencies>
+  
+  <build>
+   <plugins>
+     <plugin>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-maven-plugin</artifactId>
+     </plugin>
+     <plugin>
+	<groupId>com.spotify</groupId>
+	<artifactId>dockerfile-maven-plugin</artifactId>
+	<version>1.4.9</version>
+	<configuration>
+		<!-- replace `callicoder` with your docker id-->
+		<repository>oumarkouf/helloworldjava_springmaven</repository>
+		<tag>firststep</tag>
+		<buildArgs>
+			<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+		</buildArgs>
+	</configuration>
+	<executions>
+		<execution>
+			<id>default</id>
+			<phase>install</phase>
+			<goals>
+				<goal>build</goal>
+				<goal>push</goal>
+			</goals>
+		</execution>
+	</executions>
+</plugin>   
+   </plugins>
+ </build>
+  
+</project>
